@@ -34,7 +34,7 @@ export default defineComponent({
     display: flex;
     
     strong {
-    color: var(--primary-text);
+        color: #A9A9A9;
     }
 }
 
