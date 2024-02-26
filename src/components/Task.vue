@@ -1,10 +1,10 @@
 <template>
 <BoxComponent>
-    <div class="columns">
+    <div class="columns task">
         <div class="column is-7">
             {{ tarefa.descricao || 'Tarefa sem descrição' }}
         </div>
-        <div class="column">
+        <div class="column stopwatch">
             <StopwatchComponent :tempoEmSegundos="tarefa.duracaoEmSegundos" />
         </div>
     </div>
@@ -36,6 +36,8 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
-
+<style>
+.stopwatch StopwatchComponent {
+    color: #000;
+}
 </style>
