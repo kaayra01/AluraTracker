@@ -61,4 +61,31 @@ export default defineComponent({
     align-items: center;
     display: flex;
 }
+
+@media only screen and (max-width: 768px) {
+    .form {
+        height: auto;
+    }
+
+    .input-timer {
+        display: inline;
+        margin: 0 1rem;
+    }
+
+    .timer {
+        margin-right: 2rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .input-timer {
+        margin: 0 1rem;
+    }
+
+    .timer {
+        display: inline;
+        margin: 0;
+    }
+}
+
 </style>

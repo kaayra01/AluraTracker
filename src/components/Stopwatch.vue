@@ -37,4 +37,11 @@ export default defineComponent({
     color: var(--primary-text);
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .display {
+        margin: 0;
+    }
+}
+
 </style>
