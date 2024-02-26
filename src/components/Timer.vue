@@ -1,8 +1,8 @@
 <template>
     <div class="is-flex is-align-items is-justify-content-space-between">
         <StopwatchComponent :tempo-em-segundos="tempoEmSegundos" />
-        <ButtonComponent @clicado="iniciar" buttonIcon="fas fa-play" buttonText="PLAY" :disabled="cronometroRodando" />
-        <ButtonComponent @clicado="finalizar" buttonIcon="fas fa-stop" buttonText="STOP" :disabled="!cronometroRodando" />
+        <ButtonComponent @clicado="iniciar" buttonIcon="fas fa-play" buttonText="PLAY" :disabled="cronometroRodando" class="is-primary" />
+        <ButtonComponent @clicado="finalizar" buttonIcon="fas fa-stop" buttonText="STOP" :disabled="!cronometroRodando" class="is-danger" />
     </div>
 </template>
 

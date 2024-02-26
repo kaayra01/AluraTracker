@@ -29,7 +29,12 @@ export default defineComponent({
 </script>
 
 <style>
-.display strong {
+.display {
+    align-items: center;
+    display: flex;
+    
+    strong {
     color: var(--primary-text);
+    }
 }
 </style>

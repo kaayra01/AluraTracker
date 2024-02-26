@@ -1,9 +1,9 @@
 <template>
   <main class="columns is-gapless is-multiline" :class="{ 'dark-mode': darkModeActivated }">
-    <div class="column is-one-quarter">
+    <div class="column is-one-fifth">
       <SideBarComponent @forChangeTheme="changeTheme" />
     </div>
-    <div class="column is-three-quarter content">
+    <div class="column is-three-fifth content">
       <FormComponent @aoSalvarTarefa="salvarTarefa" />
       <div class="lista">
         <TaskComponent v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" />

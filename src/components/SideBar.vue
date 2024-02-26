@@ -3,7 +3,7 @@
         <h1>
             <img src="../assets/logo.png" alt="Logo da Alura Track">
         </h1>
-        <button class="button" @click="changeTheme">
+        <button class="button is-warning" @click="changeTheme">
             {{ buttonText }}
         </button>
     </header>
@@ -56,5 +56,9 @@ header {
         padding: 2.5rem;
         height: auto;
     }
+}
+
+button {
+    margin: 1rem 0;
 }
 </style>

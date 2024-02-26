@@ -1,10 +1,10 @@
 <template>
     <div class="box form">
-        <div class="columns">
+        <div class="columns input-timer">
             <div class="column is-8" role="form" aria-label="Formulário para criação de uma nova tarefa">
                 <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?" v-model="descricao" />
             </div>
-            <div class="column">
+            <div class="column timer">
                 <div class="column">
                     <TimerComponent @aoTemporizadorFinalizado="finalizarTarefa" />
                 </div>
@@ -34,9 +34,10 @@ export default defineComponent({
 
     methods: {
         finalizarTarefa (tempoDecorrido: number) : void {
+            let descricaoAjustada = this.descricao.replace(/(^\w{1})|(\s+\w{1})/, letra => letra.toUpperCase());
             this.$emit('aoSalvarTarefa', {
                 duracaoEmSegundos: tempoDecorrido,
-                descricao: this.descricao
+                descricao: descricaoAjustada
             })
             this.descricao = ""
         }
@@ -49,5 +50,15 @@ export default defineComponent({
 .form {
     color: var(--primary-text);
     background-color: var(--primary-bg);
+    text-align: center;
+}
+
+.timer {
+    margin: 0 1rem;
+}
+
+.input-timer {
+    align-items: center;
+    display: flex;
 }
 </style>
