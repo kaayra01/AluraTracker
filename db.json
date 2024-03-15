@@ -1,0 +1,71 @@
+{
+  "projetos": [
+    {
+      "id": "1",
+      "name": "Projeto"
+    },
+    {
+      "id": "2",
+      "name": "Projeto 2"
+    },
+    {
+      "id": "3",
+      "name": "Projeto teste"
+    },
+    {
+      "id": "4",
+      "name": "Projeto teste 2"
+    },
+    {
+      "id": "5",
+      "name": "Projeto teste 3"
+    }
+  ],
+  "tarefas": [
+    {
+      "id": "1",
+      "duracaoEmSegundos": 250,
+      "descricao": "Configuração de ambiente",
+      "projeto": {
+        "id": "1",
+        "name": "Projeto"
+      }
+    },
+    {
+      "id": "2",
+      "duracaoEmSegundos": 120,
+      "descricao": "Teste 123",
+      "projeto": {
+        "id": "2",
+        "name": "Projeto 2"
+      }
+    },
+    {
+      "id": "3",
+      "duracaoEmSegundos": 80,
+      "descricao": "Teste",
+      "projeto": {
+        "id": "3",
+        "name": "Projeto teste"
+      }
+    },
+    {
+      "id": "4",
+      "duracaoEmSegundos": 40,
+      "descricao": "Teste 2",
+      "projeto": {
+        "id": "4",
+        "name": "Projeto teste 2"
+      }
+    },
+    {
+      "id": "5",
+      "duracaoEmSegundos": 10,
+      "descricao": "Tarefa",
+      "projeto": {
+        "id": "5",
+        "name": "Projeto teste 3"
+      }
+    }
+  ]
+}

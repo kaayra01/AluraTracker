@@ -1,77 +1,54 @@
 <template>
-  <main class="columns is-gapless is-multiline" :class="{ 'dark-mode': darkModeActivated }">
+  <main
+    class="columns is-gapless is-multiline"
+    :class="{ 'dark-mode': darkModeActivated }"
+  >
     <div class="column is-one-fifth">
       <SideBarComponent @forChangeTheme="changeTheme" />
     </div>
     <div class="column is-three-fifth content">
-      <FormComponent @aoSalvarTarefa="salvarTarefa" />
-      <div class="lista">
-        <TaskComponent v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" />
-        <BoxComponent v-if="emptyList">
-          Nenhuma tarefa foi iniciada ainda.
-        </BoxComponent>
-      </div>
+      <NotificationsComponent />
+      <router-view></router-view>
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import SideBarComponent from './components/SideBar.vue';
-import FormComponent from './components/Form.vue';
-import TaskComponent from './components/Task.vue';
-import BoxComponent from './components/Box.vue';
-import ITask from './interfaces/ITask';
+import { defineComponent } from "vue";
+import SideBarComponent from "./components/SideBar.vue";
+import NotificationsComponent from "./components/Notifications.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
 
   components: {
     SideBarComponent,
-    FormComponent,
-    TaskComponent,
-    BoxComponent
+    NotificationsComponent,
   },
 
-  data () {
+  data() {
     return {
-      tarefas: [] as ITask[],
-      darkModeActivated: false
-    }
-  },
-
-  computed: {
-    emptyList () : boolean {
-      return this.tarefas.length === 0
-    }
+      darkModeActivated: false,
+    };
   },
 
   methods: {
-    salvarTarefa (tarefa: ITask) {
-      this.tarefas.push(tarefa)
+    changeTheme(darkModeActivated: boolean) {
+      this.darkModeActivated = darkModeActivated;
     },
-    changeTheme (darkModeActivated: boolean) {
-      this.darkModeActivated = darkModeActivated
-    }
-  }
-
+  },
 });
 </script>
 
-<style scoped>
-
-.lista {
-  padding: 1.25rem;
-}
-
+<style>
 main {
-  --primary-bg: #FFF;
+  --primary-bg: #fff;
   --primary-text: #000;
 }
 
 main.dark-mode {
-  --primary-bg: #2B2D42;
-  --primary-text: #DDD;
+  --primary-bg: #2b2d42;
+  --primary-text: #ddd;
 }
 
 .content {

@@ -1,5 +1,5 @@
 <template>
-    <button class="button" @click="clicado" :disabled="disabled">
+    <button class="button" @click="clicked" :disabled="disabled">
         <span class="icon">
             <i :class="buttonIcon"></i>
         </span>
@@ -13,7 +13,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
     name: 'ButtonComponent',
 
-    emits: ['clicado'],
+    emits: ['clicked'],
 
     props: {
         disabled: {
@@ -30,8 +30,8 @@ export default defineComponent({
     },
 
     methods: {
-        clicado () : void {
-            this.$emit('clicado')
+        clicked () : void {
+            this.$emit('clicked')
         }
     }
     
