@@ -1,8 +1,8 @@
 import http from "@/http";
 import ITask from "@/interfaces/ITask";
 import { Estado } from "@/store";
-import { GET_TASKS, CREATE_TASK, UPDATE_TASK } from "@/store/actions-type";
-import { ADICIONAR_TAREFA, ALTERAR_TAREFA, DEFINIR_TAREFAS } from "@/store/mutations-type";
+import { GET_TASKS, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "@/store/actions-type";
+import { ADICIONAR_TAREFA, ALTERAR_TAREFA, DEFINIR_TAREFAS, EXCLUIR_TAREFA } from "@/store/mutations-type";
 import { Module } from "vuex";
 
 export interface EstadoTarefa {
@@ -25,6 +25,9 @@ export const tarefa: Module<EstadoTarefa, Estado> = {
         [DEFINIR_TAREFAS](state, tarefas: ITask[]) {
             state.tarefas = tarefas
         },
+        [EXCLUIR_TAREFA](state, id: number) {
+            state.tarefas = state.tarefas.filter(tar => tar.id != id)
+        },
     },
 
     actions: {
@@ -45,6 +48,10 @@ export const tarefa: Module<EstadoTarefa, Estado> = {
         [UPDATE_TASK] ({ commit }, tarefa: ITask) {
             return http.put(`/tarefas/${tarefa.id}`, tarefa)
                 .then(() => commit(ALTERAR_TAREFA, tarefa))
+        },
+        [DELETE_TASK] ({ commit }, task: ITask) {
+            return http.delete(`/tarefas/${task.id}`)
+                .then(() => commit(EXCLUIR_TAREFA,task.id))
         },
     }
 }

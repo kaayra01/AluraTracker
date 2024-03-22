@@ -3,23 +3,13 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Editando a tarefa</p>
-        <button class="delete" aria-label="close" @click="fecharModal"></button>
+        <slot name="header" />
       </header>
       <section class="modal-card-body">
-        <div class="field">
-          <label for="descricaoDaTarefa" class="label">Descrição</label>
-          <input
-            type="text"
-            class="input"
-            v-model="tarefaSelecionada.descricao"
-            id="descricaoDaTarefa"
-          />
-        </div>
+        <slot name="content" />
       </section>
       <footer class="modal-card-foot">
-        <button @click="alterarTarefa" class="button is-success">Salvar</button>
-        <button @click="fecharModal" class="button">Cancelar</button>
+        <slot name="footer" />
       </footer>
     </div>
   </div>
@@ -33,8 +23,9 @@ export default defineComponent({
 
   props: {
     showModal: {
-      required: true,
-    },
-  },
+      type: Boolean,
+      required: true
+    }
+  }
 });
 </script>

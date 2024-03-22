@@ -27,7 +27,7 @@ export default defineComponent({
 
   components: {
     StopwatchComponent,
-    BoxComponent,
+    BoxComponent
   },
 
   props: {

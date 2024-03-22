@@ -13,7 +13,6 @@ export const projeto: Module<EstadoProjeto, Estado> = {
     mutations: {
         [ADICIONAR_PROJETO](state, nomeDoProjeto: string) {
             const projeto = {
-                id: new Date().toISOString(),
                 name: nomeDoProjeto
             } as IProject
             state.projetos.push(projeto)
@@ -22,7 +21,7 @@ export const projeto: Module<EstadoProjeto, Estado> = {
             const index = state.projetos.findIndex(proj => proj.id == projeto.id)
             state.projetos[index] = projeto
         },
-        [EXCLUIR_PROJETO](state, id: string) {
+        [EXCLUIR_PROJETO](state, id: number) {
             state.projetos = state.projetos.filter(proj => proj.id != id)
         },
         [DEFINIR_PROJETOS](state, projetos: IProject[]) {
@@ -43,7 +42,7 @@ export const projeto: Module<EstadoProjeto, Estado> = {
         [UPDATE_PROJECT] (context, projeto: IProject) {
             return http.put(`/projetos/${projeto.id}`, projeto)
         },
-        [DELETE_PROJECT] ({ commit }, id: string) {
+        [DELETE_PROJECT] ({ commit }, id: number) {
             return http.delete(`/projetos/${id}`)
                 .then(() => commit(EXCLUIR_PROJETO, id))
         },

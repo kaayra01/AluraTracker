@@ -23,40 +23,28 @@
       :tarefa="tarefa"
       @aoTarefaClicada="selecionarTarefa"
     />
-    <div
-      class="modal"
-      :class="{ 'is-active': tarefaSelecionada }"
-      v-if="tarefaSelecionada"
-    >
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Editando a tarefa</p>
-          <button
-            class="delete"
-            aria-label="close"
-            @click="fecharModal"
-          ></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="field">
-            <label for="descricaoDaTarefa" class="label"> Descrição </label>
-            <input
-              type="text"
-              class="input"
-              v-model="tarefaSelecionada.descricao"
-              id="descricaoDaTarefa"
-            />
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button @click="alterarTarefa" class="button is-success">
-            Salvar
-          </button>
-          <button @click="fecharModal" class="button">Cancelar</button>
-        </footer>
-      </div>
-    </div>
+    <ModalComponent :showModal="tarefaSelecionada != null">
+      <template v-slot:header>
+        <p class="modal-card-title">Editando a tarefa</p>
+        <button class="delete" aria-label="close" @click="fecharModal"></button>
+      </template>
+      <template v-slot:content>
+        <div class="field">
+          <label for="descricaoDaTarefa" class="label"> Descrição </label>
+          <input
+            type="text"
+            class="input"
+            v-model="tarefaSelecionada.descricao"
+            id="descricaoDaTarefa"
+          />
+        </div>
+      </template>
+      <template v-slot:footer>
+        <button @click="alterarTarefa" class="button is-success">Salvar</button>
+        <button @click="fecharModal" class="button">Cancelar</button>
+        <button @click="excluirTarefa" class="button is-danger exclude">EXCLUIR</button>
+      </template>
+    </ModalComponent>
   </div>
 </template>
 
@@ -65,6 +53,7 @@ import { computed, defineComponent, ref, watchEffect } from "vue";
 import FormComponent from "../components/Form.vue";
 import TaskComponent from "../components/Task.vue";
 import BoxComponent from "../components/Box.vue";
+import ModalComponent from "../components/Modal.vue";
 import useNotificador from "@/hooks/notificador";
 import { useStore } from "@/store";
 import {
@@ -72,6 +61,7 @@ import {
   GET_PROJECTS,
   GET_TASKS,
   UPDATE_TASK,
+  DELETE_TASK,
 } from "@/store/actions-type";
 import ITask from "@/interfaces/ITask";
 import { NotificationType } from "@/interfaces/INotification";
@@ -83,6 +73,7 @@ export default defineComponent({
     FormComponent,
     BoxComponent,
     TaskComponent,
+    ModalComponent,
   },
 
   data() {
@@ -95,24 +86,43 @@ export default defineComponent({
     salvarTarefa(tarefa: ITask) {
       this.store.dispatch(CREATE_TASK, tarefa);
     },
+
     selecionarTarefa(tarefa: ITask) {
       this.tarefaSelecionada = tarefa;
     },
+
     fecharModal() {
       this.tarefaSelecionada = null;
     },
+
     alterarTarefa() {
       this.store.dispatch(UPDATE_TASK, this.tarefaSelecionada).then(() => {
         this.fecharModal();
-        this.lidarComSucesso();
+        this.lidarComSucesso("Sucesso");
       });
     },
-    lidarComSucesso() {
-      this.notificar(
-        NotificationType.SUCESSO,
-        "Tarefa atualizada!",
-        "Sua tarefa foi alterada com sucesso."
-      );
+
+    excluirTarefa() {
+      this.store.dispatch(DELETE_TASK, this.tarefaSelecionada).then(() => {
+        this.fecharModal();
+        this.lidarComSucesso("Exclusão");
+      });
+    },
+
+    lidarComSucesso(status: string) {
+      if (status == "Sucesso") {
+        this.notificar(
+          NotificationType.SUCESSO,
+          "Tarefa atualizada!",
+          "Sua tarefa foi alterada com sucesso."
+        );
+      } else {
+        this.notificar(
+          NotificationType.FALHA,
+          "Tarefa excluída!",
+          "A tarefa foi removida com sucesso."
+        );
+      }
     },
   },
 
@@ -153,5 +163,9 @@ export default defineComponent({
 <style>
 .lista {
   padding: 1.25rem;
+}
+
+.exclude {
+  margin: 0 50%;
 }
 </style>
