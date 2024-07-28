@@ -4,7 +4,7 @@
     <BoxComponent v-if="emptyList">
       Nenhuma tarefa foi iniciada ainda.
     </BoxComponent>
-    <div class="field">
+    <div class="field" v-show="tarefas.length > 0">
       <p class="control has-icons-left">
         <input
           class="input"
